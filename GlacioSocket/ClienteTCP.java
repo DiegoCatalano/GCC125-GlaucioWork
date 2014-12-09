@@ -23,6 +23,7 @@ public class ClienteTCP {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        
         Socket socket = new Socket("127.0.0.1",12345);
         System.out.println("Bem vindo ao Glaucio Network - TCP\n");
         
@@ -41,7 +42,7 @@ public class ClienteTCP {
             out.writeUTF(dados);
             
             //Obtem resposta do servidor
-            String resposta = in.readUTF();
+            double resposta = in.readDouble();
             System.out.println(resposta);
             
         }

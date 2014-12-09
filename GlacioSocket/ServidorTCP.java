@@ -34,16 +34,12 @@ public class ServidorTCP {
         while(!dados.equals("0")){
             
             dados = in.readUTF();
-            System.out.print(dados);
+            System.out.println("Recebido do IP: " + server.getInetAddress().getHostAddress() + "  -> " + dados);
             
-            String[] temp = dados.split("\\+");
-            double result = 0;
-            for (int i = 0; i < temp.length; i++) {
-                result += Double.parseDouble(temp[i]);
-            }
+            double result = MathExpression.Evaluation(dados);
             
-            String r = String.valueOf(result);
-            out.writeUTF(r);
+            //String r = String.valueOf(result);
+            out.writeDouble(result);
             
             
         }

@@ -6,8 +6,6 @@
 
 package GlacioSocket;
 
-import com.sun.org.apache.bcel.internal.util.ByteSequence;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -25,23 +23,20 @@ public class ServidorUDP {
      */
     public static void main(String[] args) throws SocketException, IOException {
          DatagramSocket serverSocket = new DatagramSocket(9876);
-         byte[] receiveData = new byte[1024];
-         byte[] sendData = new byte[1024];
-         
          System.out.println("Servidor do Glaucio Network - UDP\n");
+         
          while(true){
+            byte[] receiveData = new byte[1024];
+            byte[] sendData = new byte[1024];
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
-            String sentence = new String( receivePacket.getData());
+            String dados = new String( receivePacket.getData()).trim();
             
             InetAddress IPAddress = receivePacket.getAddress();
             int port = receivePacket.getPort();
             
-            String[] dados = sentence.split("\\+");
-            double result = 0;
-            for (int i = 0; i < dados.length; i++) {
-                result += Double.parseDouble(dados[i]);
-            }
+            System.out.println("Recebido de: " + IPAddress.getHostAddress() + "  -> " + dados);
+            double result = MathExpression.Evaluation(dados);
             
             sendData = String.valueOf(result).getBytes();
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);

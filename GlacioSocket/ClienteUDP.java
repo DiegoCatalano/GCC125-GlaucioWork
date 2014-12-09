@@ -30,15 +30,15 @@ public class ClienteUDP {
         InetAddress ip = InetAddress.getByName("127.0.0.1");
         
         System.out.println("Bem vindo ao Glaucio Network - UDP\n");
-        String sentence = "";
-        while(!sentence.equals("0")){
+        String dados = "";
+        while(!dados.equals("0")){
             byte[] sendData = new byte[1024];
             byte[] receiveData = new byte[1024];
             
             //Purpurina
             System.out.print("-> ");
-            sentence = userInput.readLine();
-            sendData = sentence.getBytes();
+            dados = userInput.readLine();
+            sendData = dados.getBytes();
 
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ip, 9876);
             client.send(sendPacket);
